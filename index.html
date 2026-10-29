@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lovely Vibes</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#050816;
+color:white;
+overflow-x:hidden;
+min-height:100vh;
+position:relative;
+}
+
+/* Fondo dinámico */
+
+body::before{
+content:"";
+position:fixed;
+inset:-50%;
+background:
+radial-gradient(circle,#ff00ff55 0%,transparent 25%),
+radial-gradient(circle,#00ffff55 0%,transparent 25%),
+radial-gradient(circle,#8b5cf655 0%,transparent 25%);
+animation:giro 25s linear infinite;
+z-index:-3;
+}
+
+body::after{
+content:"";
+position:fixed;
+inset:0;
+background:linear-gradient(
+135deg,
+#ff1493,
+#7b2ff7,
+#00ffff,
+#ff00ff
+);
+background-size:400% 400%;
+opacity:.15;
+animation:aurora 12s ease infinite;
+z-index:-2;
+}
+
+@keyframes aurora{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+@keyframes giro{
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+}
+
+/* Partículas */
+
+.particulas{
+position:fixed;
+inset:0;
+overflow:hidden;
+pointer-events:none;
+z-index:-1;
+}
+
+.particulas span{
+position:absolute;
+bottom:-100px;
+width:10px;
+height:10px;
+background:white;
+border-radius:50%;
+box-shadow:
+0 0 10px white,
+0 0 20px cyan,
+0 0 40px cyan;
+animation:subir linear infinite;
+}
+
+.particulas span:nth-child(1){left:5%;animation-duration:11s;}
+.particulas span:nth-child(2){left:15%;animation-duration:17s;}
+.particulas span:nth-child(3){left:25%;animation-duration:13s;}
+.particulas span:nth-child(4){left:35%;animation-duration:19s;}
+.particulas span:nth-child(5){left:45%;animation-duration:15s;}
+.particulas span:nth-child(6){left:55%;animation-duration:20s;}
+.particulas span:nth-child(7){left:65%;animation-duration:14s;}
+.particulas span:nth-child(8){left:75%;animation-duration:18s;}
+.particulas span:nth-child(9){left:85%;animation-duration:12s;}
+.particulas span:nth-child(10){left:95%;animation-duration:22s;}
+
+@keyframes subir{
+
+0%{
+transform:translateY(0) scale(0);
+opacity:0;
+}
+
+20%{
+opacity:1;
+}
+
+100%{
+transform:translateY(-120vh) scale(2);
+opacity:0;
+}
+
+}
+
+/* Hero */
+
+header{
+text-align:center;
+padding:80px 20px;
+}
+
+header h1{
+font-size:4rem;
+
+text-shadow:
+0 0 20px #fff,
+0 0 40px #ff00ff,
+0 0 70px #ff00ff;
+}
+
+header p{
+margin-top:20px;
+font-size:1.2rem;
+max-width:700px;
+margin-left:auto;
+margin-right:auto;
+}
+
+/* Productos */
+
+.productos{
+width:90%;
+max-width:1400px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
+padding-bottom:60px;
+}
+
+.card{
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(20px);
+border-radius:25px;
+overflow:hidden;
+border:1px solid rgba(255,255,255,.15);
+
+animation:
+flotar 5s ease-in-out infinite,
+brillo 3s infinite alternate;
+}
+
+.card:nth-child(2){
+animation-delay:1s;
+}
+
+.card:nth-child(3){
+animation-delay:2s;
+}
+
+.card img{
+width:100%;
+height:420px;
+object-fit:cover;
+}
+
+.card:hover{
+transform:scale(1.03);
+}
+
+@keyframes flotar{
+0%{transform:translateY(0);}
+50%{transform:translateY(-15px);}
+100%{transform:translateY(0);}
+}
+
+@keyframes brillo{
+from{
+box-shadow:0 0 15px #ff00ff;
+}
+to{
+box-shadow:
+0 0 30px #ff00ff,
+0 0 60px #00ffff;
+}
+}
+
+.info{
+padding:20px;
+}
+
+.info h2{
+margin-bottom:10px;
+}
+
+.info p{
+line-height:1.6;
+}
+
+.precio{
+font-size:2rem;
+font-weight:bold;
+margin:15px 0;
+color:#00ffff;
+}
+
+.btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+cursor:pointer;
+font-size:1rem;
+font-weight:bold;
+color:white;
+background:linear-gradient(
+90deg,
+#ff00ff,
+#00ffff
+);
+}
+
+/* Carrito */
+
+.carrito{
+position:fixed;
+right:20px;
+bottom:20px;
+width:330px;
+background:rgba(0,0,0,.85);
+backdrop-filter:blur(20px);
+padding:20px;
+border-radius:20px;
+box-shadow:0 0 25px #ff00ff;
+}
+
+.carrito h3{
+text-align:center;
+margin-bottom:15px;
+}
+
+#lista{
+list-style:none;
+max-height:200px;
+overflow:auto;
+}
+
+#lista li{
+padding:10px 0;
+border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.total{
+text-align:center;
+font-size:1.5rem;
+color:#00ffff;
+margin:15px 0;
+font-weight:bold;
+}
+
+.btn-vaciar{
+background:#ef4444;
+margin-top:10px;
+}
+
+.btn-whatsapp{
+background:#25D366;
+margin-top:10px;
+}
+
+/* Whatsapp flotante */
+
+.whatsapp{
+position:fixed;
+left:20px;
+bottom:20px;
+width:70px;
+height:70px;
+border-radius:50%;
+background:#25D366;
+display:flex;
+justify-content:center;
+align-items:center;
+text-decoration:none;
+font-size:35px;
+color:white;
+box-shadow:0 0 20px #25D366;
+}
+
+footer{
+text-align:center;
+padding:50px 20px;
+}
+
+footer a{
+display:inline-block;
+padding:12px 25px;
+background:#25D366;
+color:white;
+text-decoration:none;
+border-radius:40px;
+font-weight:bold;
+box-shadow:0 0 15px #25D366;
+}
+
+@media(max-width:768px){
+
+header h1{
+font-size:2.6rem;
+}
+
+.carrito{
+position:relative;
+width:95%;
+right:auto;
+bottom:auto;
+margin:20px auto;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="particulas">
+<span></span><span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<header>
+
+<h1>💖 Lovely Vibes 💖</h1>
+
+<p>
+Resalta tu belleza natural con fragancias únicas que inspiran confianza, elegancia y bienestar en cada momento. ✨🌸
+</p>
+
+</header>
+
+<section class="productos">
+
+<div class="card">
+
+<img src="producto1.png" alt="Sunset">
+
+<div class="info">
+<h2>🌸 Set Sunset Lovely Vibes</h2>
+<p>Body Mist + Loción Corporal.</p>
+<div class="precio">$14.990</div>
+
+<button class="btn"
+onclick="agregar('Set Sunset Lovely Vibes',14990)">
+🛒 Agregar al carrito
+</button>
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="producto2.png" alt="Sunrise">
+
+<div class="info">
+<h2>🌅 Set Sunrise Lovely Vibes</h2>
+<p>Fragancia inspirada en el amanecer.</p>
+<div class="precio">$14.990</div>
+
+<button class="btn"
+onclick="agregar('Set Sunrise Lovely Vibes',14990)">
+🛒 Agregar al carrito
+</button>
+</div>
+
+</div>
+
+<div class="card">
+
+<img src="producto3.png" alt="Mystic Violet">
+
+<div class="info">
+<h2>💜 Mystic Violet</h2>
+<p>Set premium de cuidado corporal.</p>
+<div class="precio">$19.990</div>
+
+<button class="btn"
+onclick="agregar('Mystic Violet',19990)">
+🛒 Agregar al carrito
+</button>
+</div>
+
+</div>
+
+</section>
+
+<div class="carrito">
+
+<h3>
+🛒 Carrito (<span id="cantidad">0</span>)
+</h3>
+
+<ul id="lista"></ul>
+
+<div class="total">
+$<span id="total">0</span>
+</div>
+
+<button class="btn btn-vaciar"
+onclick="vaciarCarrito()">
+🗑 Vaciar carrito
+</button>
+
+<button class="btn btn-whatsapp"
+onclick="enviarPedido()">
+📲 Comprar por WhatsApp
+</button>
+
+</div>
+
+<a class="whatsapp"
+href="https://wa.me/56996878381"
+target="_blank">
+💬
+</a>
+
+<footer>
+
+<h3>✨ Descubre tu esencia, vive tu belleza ✨</h3>
+
+<br>
+
+<a href="https://wa.me/56996878381" target="_blank">
+💬 Contactar por WhatsApp
+</a>
+
+</footer>
+
+<script>
+
+let carrito=[];
+
+function agregar(nombre,precio){
+
+carrito.push({
+nombre,
+precio
+});
+
+actualizarCarrito();
+
+}
+
+function actualizarCarrito(){
+
+let html='';
+let total=0;
+
+carrito.forEach((item,index)=>{
+
+total += item.precio;
+
+html += `
+<li>
+${item.nombre}<br>
+💲${item.precio.toLocaleString('es-CL')}
+<br><br>
+
+<button onclick="eliminarProducto(${index})"
+style="
+background:#ff004f;
+border:none;
+padding:6px 10px;
+border-radius:6px;
+cursor:pointer;
+color:white;">
+Eliminar
+</button>
+
+</li>
+`;
+
+});
+
+document.getElementById("lista").innerHTML=html;
+document.getElementById("total").innerHTML=total.toLocaleString('es-CL');
+document.getElementById("cantidad").innerHTML=carrito.length;
+
+}
+
+function eliminarProducto(index){
+
+carrito.splice(index,1);
+actualizarCarrito();
+
+}
+
+function vaciarCarrito(){
+
+carrito=[];
+actualizarCarrito();
+
+}
+
+function enviarPedido(){
+
+if(carrito.length===0){
+
+alert("Agrega productos al carrito");
+return;
+
+}
+
+let mensaje="🌸 Hola, me gustaría realizar el siguiente pedido:%0A%0A";
+
+let total=0;
+
+carrito.forEach(item=>{
+
+mensaje +=
+"✅ "+item.nombre+
+" - $"+item.precio.toLocaleString('es-CL')+
+"%0A";
+
+total += item.precio;
+
+});
+
+mensaje +=
+"%0A💰 Total: $"+
+total.toLocaleString('es-CL');
+
+window.open(
+"https://wa.me/56996878381?text="+mensaje,
+"_blank"
+);
+
+}
+
+</script>
+
+</body>
+</html>
